@@ -1,0 +1,90 @@
+
+            '''
+            # For each row, it is a table
+            for row1 in response.xpath("''" + curr_path + "''"):
+                print("DEBUG MESSAGE 1")
+                detail_url = row1.xpath('td[9]//@href').extract()
+                detail_full_url = 'http://www.century21-hk.com/eng/' + str(detail_url[0])
+                print("URL: ", detail_full_url)
+                OP_Date, Gross_Area, Exp_Year, Facing, Layout = parse_detail_page(detail_full_url)
+
+                print("Generate Listing with XPATH")
+                listing = DemoItem()
+                listing['Input_Date'] = row1.xpath('td[2]//text()').extract_first()
+                listing['Address'] = row1.xpath('td[3]//text()').extract_first()
+                listing['Floor'] = row1.xpath('td[4]//text()').extract_first()
+                listing['Unit'] = row1.xpath('td[5]//text()').extract_first()
+                listing['Saleable_Area'] = row1.xpath('td[6]//text()').extract_first()
+                listing['Price_M'] = row1.xpath('td[7]//text()').extract_first()
+                listing['Price_ft2'] = row1.xpath('td[8]//text()').extract_first()
+                listing['OP_Date'] = OP_Date
+                listing['Gross_Area'] = Gross_Area
+                listing['Exp_Year'] = Exp_Year
+                listing['Facing'] = Facing
+                listing['Layout'] = Layout
+
+                print('End of adding Extrat_Text into DemoItem')
+                print('Append current listing into listings array')
+                listings.append(listing)
+                '''
+
+
+                '''
+                listing = {
+                    'Input_Date': row1.xpath('td[2]//text()').extract_first(),
+                    'Address': row1.xpath('td[3]//text()').extract_first(),
+                    'Floor': row1.xpath('td[4]//text()').extract_first(),
+                    'Unit': row1.xpath('td[5]//text()').extract_first(),
+                    'Saleable_Area': row1.xpath('td[6]//text()').extract_first(),
+                    'Price_M': row1.xpath('td[7]//text()').extract_first(),
+                    'Price_ft2': row1.xpath('td[8]//text()').extract_first(),
+
+                    #'Detail': row1.xpath('tf[9]//href()').extract_first()
+                    'OP_Date': detail_url_response.xpath('//*[@id="trandetail"]/table/tbody/tr/td/table/tbody/tr[4]/td[4]//text()').extract_first(),
+                    #'Gross_Area': row2.xpath('//*[@id="trandetail"]/table/tbody/tr/td/table/tbody/tr[5]/td[2]//text()').extract_first(),
+                    #'Exp_Year': row2.xpath('//*[@id="trandetail"]/table/tbody/tr/td/table/tbody/tr[5]/td[4]//text()').extract_first(),
+                    #'Facing': row2.xpath('//*[@id="trandetail"]/table/tbody/tr/td/table/tbody/tr[7]/td[2]//text()').extract_first(),
+                    #'Layout': row2.xpath('//*[@id="trandetail"]/table/tbody/tr/td/table/tbody/tr[7]/td[4]//text()').extract_first(),
+                }
+
+
+
+                listings.append(listing)
+                '''
+
+
+
+
+
+                R = response.xpath(curr_path)
+                      detail_url = R.xpath('td[9]//@href').extract()
+                      print("detail_url: {}".format(detail_url))
+
+
+                      print("Generate Listing with XPATH")
+                      listing = DemoItem()
+                      listing['Input_Date'] = R.xpath('td[2]//text()').extract_first()
+                      print(listing['Input_Date'])
+                      listing['Address'] = R.xpath('td[3]//text()').extract_first()
+                      print(listing['Address'])
+                      listing['Floor'] = R.xpath('td[4]//text()').extract_first()
+                      print(listing['Floor'])
+                      listing['Unit'] = R.xpath('td[5]//text()').extract_first()
+                      listing['Saleable_Area'] = R.xpath('td[6]//text()').extract_first()
+                      listing['Price_M'] = R.xpath('td[7]//text()').extract_first()
+                      listing['Price_ft2'] = R.xpath('td[8]//text()').extract_first()
+
+                      print("DETAIL URL EXTRACTION")
+                      detail_full_url = 'http://www.century21-hk.com/eng/' + str(detail_url)
+                      print("URL: ", detail_full_url)
+                      OP_Date, Gross_Area, Exp_Year, Facing, Layout = parse_detail_page(detail_full_url)
+                      listing['OP_Date'] = OP_Date
+                      listing['Gross_Area'] = Gross_Area
+                      listing['Exp_Year'] = Exp_Year
+                      listing['Facing'] = Facing
+                      listing['Layout'] = Layout
+
+
+                      print('End of adding Extrat_Text into DemoItem')
+                      print('Append current listing into listings array')
+                      listings.append(listing)
